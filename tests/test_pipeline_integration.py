@@ -24,6 +24,7 @@ def test_pipeline_creates_expected_features_in_real_dataset():
         "last_known_change",
         "sqft_price",
         "center_distance",
+        "water_distance",
     }
 
     assert expected_columns.issubset(result.columns)
@@ -35,6 +36,10 @@ def test_pipeline_removes_columns_that_should_not_remain():
     assert "yr_built" not in result.columns
     assert "yr_renovated" not in result.columns
 
+def test_pipeline_removes_invalid_bedroom_record():
+    result = load_and_transform_data(str(DATA_FILE))
+
+    assert 33 not in result["bedrooms"].values
 
 def test_pipeline_does_not_leave_missing_values_in_cleaned_columns():
     result = load_and_transform_data(str(DATA_FILE))

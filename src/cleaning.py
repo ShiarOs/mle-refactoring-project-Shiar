@@ -18,3 +18,8 @@ def clean_data(dataframe):
     
     # print(result.head()) # print the first few rows of the cleaned dataframe for debugging
     return result
+
+@log_step
+def remove_invalid_bedroom_records(dataframe):
+    result = dataframe.copy()
+    return result[result["bedrooms"] != 33]
